@@ -5,11 +5,22 @@ import sqlite3
 #bot
 bot = telebot.TeleBot(config.TOKEN)
 
-
 # with sqlite3.connect('users.db') as connect:
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message(message.chat_id, message.chat_id)
+    print("here")
+    bot.send_message(message.chat.id, message.chat.id)
+    
+    if message.chat.type == "group":
+        bot.send_message(message.chat.id, 'Это группа')
+    else: 
+        bot.send_message(message.chat.id, 'Нет')
+    
+    
+    # amount = bot.get_chat_member_count(message.chat.id)
+    # bot.send_message(message.chat.id, amount)
+
+
     # connect = sqlite3.connect('users.db')
     # cursor = connect.cursor()
     # cursor.execute(""" CREATE TABLE IF NOT EXISTS login_id(
@@ -40,6 +51,17 @@ def start(message):
     #     connect.commit()
         
 
+
+@bot.message_handler(commands=['info1'])
+def people(message):
+    # member = bot.get_chat_member(message.chat.id, message.from_user.id)
+    member = bot.get_chat_member(message.chat.id, "689759837")
+    #then member added to chat
+    
+    #person status
+    bot.send_message(message.chat.id, member.status)
+    #kick person
+    bot.kick_chat_member(message.chat.id, "689759837")
 
 #polling
 bot.polling()
