@@ -57,9 +57,9 @@ def people(message):
     # member = bot.get_chat_member(message.chat.id, message.from_user.id)
     member = bot.get_chat_member(message.chat.id, "689759837")
     #then member added to chat
-    
+    bot.send_message(message.chat.id, member)
     #person status
-    bot.send_message(message.chat.id, member.status)
+    # bot.send_message(message.chat.id, member.status)
     #kick person
     bot.kick_chat_member(message.chat.id, "689759837")
 
